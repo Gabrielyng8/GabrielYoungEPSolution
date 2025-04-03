@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    internal class PollRepository
+    public class PollRepository
     {
     }
 }
