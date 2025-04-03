@@ -9,7 +9,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Index([FromServices] PollRepository pollRepository)
         {
-            var polls = pollRepository.GetPolls().OrderBy(p => p.DateCreated);
+            var polls = pollRepository.GetPolls().OrderByDescending(p => p.DateCreated);
             return View(polls);
         }
 
