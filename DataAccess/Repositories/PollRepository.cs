@@ -17,6 +17,11 @@ namespace DataAccess.Repositories
             context = _context;
         }
 
+        public IQueryable<Poll> GetPolls()
+        {
+            return context.Polls;
+        }
+
         public void CreatePoll(Poll poll)
         {
             context.Polls.Add(poll);
