@@ -17,6 +17,7 @@
             <th>Option 1</th>
             <th>Option 2</th>
             <th>Option 3</th>
+            <th>Date Created</th>
             <th class="text-center">Actions</th>
         </tr>
     </thead>
@@ -27,6 +28,7 @@
                 <td>@item.Option1Text</td>
                 <td>@item.Option2Text</td>
                 <td>@item.Option3Text</td>
+                <td>@item.DateCreated</td>
                 <td class="text-center">
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
                 </td>
