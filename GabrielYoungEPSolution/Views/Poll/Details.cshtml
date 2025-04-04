@@ -11,8 +11,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Option 1</h5>
-                <form asp-action="Vote" method="post" class="mb-0">
-                    <input type="hidden" name="pollId" value="@Model.Id" />
+                <form asp-action="Vote" asp-route-pollId="@Model.Id" method="post" class="mb-0">
                     <input type="hidden" name="option" value="1" />
                     <button type="submit" class="btn btn-success btn-sm">Vote</button>
                 </form>
@@ -32,8 +31,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Option 2</h5>
-                <form asp-action="Vote" method="post" class="mb-0">
-                    <input type="hidden" name="pollId" value="@Model.Id" />
+                <form asp-action="Vote" asp-route-pollId="@Model.Id" method="post" class="mb-0">
                     <input type="hidden" name="option" value="2" />
                     <button type="submit" class="btn btn-success btn-sm">Vote</button>
                 </form>
@@ -53,8 +51,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Option 3</h5>
-                <form asp-action="Vote" method="post" class="mb-0">
-                    <input type="hidden" name="pollId" value="@Model.Id" />
+                <form asp-action="Vote" asp-route-pollId="@Model.Id" method="post" class="mb-0">
                     <input type="hidden" name="option" value="3" />
                     <button type="submit" class="btn btn-success btn-sm">Vote</button>
                 </form>

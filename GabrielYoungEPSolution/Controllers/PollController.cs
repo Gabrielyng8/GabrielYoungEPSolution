@@ -64,12 +64,21 @@ namespace Presentation.Controllers
             try
             {
                 pollRepository.Vote(pollId, option, userId);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = pollId });
             }
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Vote(int pollId)
+        {
+
+            // After login, if the user is redirected here via GET, just forward them to the poll
+            return RedirectToAction("Details", new { id = pollId });
         }
     }
 }
