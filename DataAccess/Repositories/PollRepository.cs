@@ -32,5 +32,28 @@ namespace DataAccess.Repositories
             context.Polls.Add(poll);
             context.SaveChanges();
         }
+
+        public void Vote(int pollId, int option)
+        {
+            var poll = context.Polls.FirstOrDefault(p => p.Id == pollId);
+            if (poll != null)
+            {
+                switch (option)
+                {
+                    case 1:
+                        poll.Option1VotesCount++;
+                        break;
+                    case 2:
+                        poll.Option2VotesCount++;
+                        break;
+                    case 3:
+                        poll.Option3VotesCount++;
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid option");
+                }
+                context.SaveChanges();
+            }
+        }
     }
 }

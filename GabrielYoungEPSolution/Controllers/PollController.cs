@@ -49,5 +49,19 @@ namespace Presentation.Controllers
             }
             return View(poll);
         }
+
+        [HttpPost]
+        public IActionResult Vote([FromServices] PollRepository pollRepository, int pollId, int option)
+        {
+            try
+            {
+                pollRepository.Vote(pollId, option);
+                return RedirectToAction("Details", new { id = pollId });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
