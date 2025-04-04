@@ -79,6 +79,48 @@
         </dl>
     </div>
 </div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <canvas id="votesChart"></canvas>
+    </div>
+</div>
+
 <div class="text-center mt-4">
     <a asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('votesChart').getContext('2d');
+        var votesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Option 1', 'Option 2', 'Option 3'],
+                datasets: [{
+                    label: 'Votes',
+                    data: [@Model.Option1VotesCount, @Model.Option2VotesCount, @Model.Option3VotesCount],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}
