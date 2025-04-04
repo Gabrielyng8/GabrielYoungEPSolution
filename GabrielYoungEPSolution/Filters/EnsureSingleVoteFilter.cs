@@ -37,5 +37,10 @@ namespace Presentation.Filters
                 return;
             }
         }
+
+        public void OnActionExecuted(ActionExecutedContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
