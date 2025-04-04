@@ -39,7 +39,7 @@ namespace DataAccess.Repositories
             File.WriteAllText(_filePath, JsonConvert.SerializeObject(polls, Formatting.Indented));
         }
 
-        public void Vote(int pollId, int option)
+        public void Vote(int pollId, int option, string userId)
         {
             var polls = GetPolls();
             var poll = polls.FirstOrDefault(p => p.Id == pollId);
@@ -59,6 +59,7 @@ namespace DataAccess.Repositories
                     default:
                         throw new ArgumentException("Invalid option");
                 }
+                poll.VoterIds.Add(userId);
                 File.WriteAllText(_filePath, JsonConvert.SerializeObject(polls, Formatting.Indented));
             }
         }

@@ -29,11 +29,12 @@ namespace DataAccess.Repositories
             context.SaveChanges();
         }
 
-        public void Vote(int pollId, int option)
+        public void Vote(int pollId, int option, string userId)
         {
             var poll = context.Polls.FirstOrDefault(p => p.Id == pollId);
             if (poll != null)
             {
+                // Prevent duplicate vote logic is already handled in filter
                 switch (option)
                 {
                     case 1:
@@ -48,6 +49,8 @@ namespace DataAccess.Repositories
                     default:
                         throw new ArgumentException("Invalid option");
                 }
+
+                poll.VoterIds.Add(userId);
                 context.SaveChanges();
             }
         }
