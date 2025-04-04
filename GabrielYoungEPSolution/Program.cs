@@ -54,7 +54,7 @@ namespace GabrielYoungEPSolution
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Poll}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();
