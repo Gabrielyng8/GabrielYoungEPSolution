@@ -8,20 +8,20 @@ namespace Presentation.Controllers
     {
 
         [HttpGet]
-        public IActionResult Index([FromServices] PollRepository pollRepository)
+        public IActionResult Index([FromServices] IPollRepository pollRepository)
         {
             var polls = pollRepository.GetPolls().OrderByDescending(p => p.DateCreated);
             return View(polls);
         }
 
         [HttpGet]
-        public IActionResult Create([FromServices] PollRepository pollRepository)
+        public IActionResult Create([FromServices] IPollRepository pollRepository)
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create([FromServices] PollRepository pollRepository, string title, string option1Text, string option2Text, string option3Text)
+        public IActionResult Create([FromServices] IPollRepository pollRepository, string title, string option1Text, string option2Text, string option3Text)
         {
             var poll = new Domain.Models.Poll
             {
@@ -40,7 +40,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details([FromServices] PollRepository pollRepository, int id)
+        public IActionResult Details([FromServices] IPollRepository pollRepository, int id)
         {
             var poll = pollRepository.GetPollById(id);
             if (poll == null)
@@ -51,7 +51,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Vote([FromServices] PollRepository pollRepository, int pollId, int option)
+        public IActionResult Vote([FromServices] IPollRepository pollRepository, int pollId, int option)
         {
             try
             {

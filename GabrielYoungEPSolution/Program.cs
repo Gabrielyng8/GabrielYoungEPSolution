@@ -21,7 +21,13 @@ namespace GabrielYoungEPSolution
                 .AddEntityFrameworkStores<PollDbContext>();
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<PollRepository>();
+            // Register the desired repository implementation
+            // To use PollRepository:
+            builder.Services.AddScoped<IPollRepository, PollRepository>();
+
+            // To use PollFileRepository:
+            //builder.Services.AddScoped<IPollRepository>(provider => new PollFileRepository("path/to/your/json/file.json"));
+
 
             var app = builder.Build();
 
