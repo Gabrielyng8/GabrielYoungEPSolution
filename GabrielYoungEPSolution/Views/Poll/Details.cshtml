@@ -4,63 +4,70 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Poll Details</h1>
 
-<div>
-    <h4>Poll</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Option1Text)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Option1Text)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Option2Text)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Option2Text)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Option3Text)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Option3Text)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Option1VotesCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Option1VotesCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Option2VotesCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Option2VotesCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Option3VotesCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Option3VotesCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="card mt-4">
+    <div class="card-header">
+        <h4>@Model.Title</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Option 1</h5>
+                <dl class="row">
+                    <dt class="col-sm-6">Text: </dt>
+                    <dd class="col-sm-6">@Html.DisplayFor(model => model.Option1Text)</dd>
+
+                    <dt class="col-sm-6">Count: </dt>
+                    <dd class="col-sm-6">@Html.DisplayFor(model => model.Option1VotesCount)</dd>
+                </dl>
+                <form asp-action="Vote" method="post">
+                    <input type="hidden" name="pollId" value="@Model.Id" />
+                    <input type="hidden" name="option" value="1" />
+                    <button type="submit" class="btn btn-success">Vote</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h5>Option 2</h5>
+                <dl class="row">
+                    <dt class="col-sm-6">Text: </dt>
+                    <dd class="col-sm-6">@Html.DisplayFor(model => model.Option2Text)</dd>
+
+                    <dt class="col-sm-6">Count: </dt>
+                    <dd class="col-sm-6">@Html.DisplayFor(model => model.Option2VotesCount)</dd>
+                </dl>
+                <form asp-action="Vote" method="post">
+                    <input type="hidden" name="pollId" value="@Model.Id" />
+                    <input type="hidden" name="option" value="2" />
+                    <button type="submit" class="btn btn-success">Vote</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h5>Option 3</h5>
+                <dl class="row">
+                    <dt class="col-sm-6">Text: </dt>
+                    <dd class="col-sm-6">@Html.DisplayFor(model => model.Option3Text)</dd>
+
+                    <dt class="col-sm-6">Count: </dt>
+                    <dd class="col-sm-6">@Html.DisplayFor(model => model.Option3VotesCount)</dd>
+                </dl>
+                <form asp-action="Vote" method="post">
+                    <input type="hidden" name="pollId" value="@Model.Id" />
+                    <input type="hidden" name="option" value="3" />
+                    <button type="submit" class="btn btn-success">Vote</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <dl class="row">
+                    <dt class="col-sm-4">Date Created: </dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.DateCreated)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </div>
 </div>

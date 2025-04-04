@@ -56,7 +56,7 @@ namespace Presentation.Controllers
             try
             {
                 pollRepository.Vote(pollId, option);
-                return RedirectToAction("Details", new { id = pollId });
+                return RedirectToAction("Index");
             }
             catch (ArgumentException ex)
             {
