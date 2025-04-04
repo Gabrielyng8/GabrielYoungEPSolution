@@ -26,7 +26,7 @@ namespace GabrielYoungEPSolution
             builder.Services.AddScoped<IPollRepository, PollRepository>();
 
             // To use PollFileRepository:
-            //builder.Services.AddScoped<IPollRepository>(provider => new PollFileRepository("path/to/your/json/file.json"));
+            //builder.Services.AddScoped<IPollRepository>(provider => new PollFileRepository("polls.json"));
 
 
             var app = builder.Build();
