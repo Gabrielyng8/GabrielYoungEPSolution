@@ -56,7 +56,7 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [Authorize]
-        [ServiceFilter(typeof(EnsureSingleVoteFilter))] // applies the filter!
+        [ServiceFilter(typeof(EnsureSingleVoteFilter))]
         public IActionResult Vote([FromServices] IPollRepository pollRepository, int pollId, int option)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
