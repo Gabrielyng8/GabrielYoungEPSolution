@@ -4,7 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class="text-center">Poll Details</h1>
+<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h2 class="mb-0">@Model.Title</h2>
+    <small class="text-muted">Published on @Model.DateCreated.ToString("dd MMM yyyy")</small>
+</div>
 
 <div class="row mt-4">
     <div class="col-md-4">
@@ -66,14 +69,6 @@
                 </dl>
             </div>
         </div>
-    </div>
-</div>
-<div class="row mt-4">
-    <div class="col-md-12">
-        <dl class="row">
-            <dt class="col-sm-4">Date Created: </dt>
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.DateCreated)</dd>
-        </dl>
     </div>
 </div>
 
