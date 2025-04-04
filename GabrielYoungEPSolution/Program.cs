@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.DataContext;
 using DataAccess.Repositories;
+using Presentation.Filters;
 
 namespace GabrielYoungEPSolution
 {
@@ -28,6 +29,7 @@ namespace GabrielYoungEPSolution
             // To use PollFileRepository:
             //builder.Services.AddScoped<IPollRepository>(provider => new PollFileRepository("polls.json"));
 
+            builder.Services.AddScoped<EnsureSingleVoteFilter>();
 
             var app = builder.Build();
 

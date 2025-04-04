@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 using DataAccess.Repositories;
+using System.Security.Claims;
 
 namespace Presentation.Filters
 {
@@ -16,12 +17,10 @@ namespace Presentation.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var pollId = (int)context.ActionArguments["pollId"];
-            var userId = context.HttpContext.User.Identity?.Name;
-
-            if (string.IsNullOrEmpty(userId))
+            if (!context.ActionArguments.TryGetValue("pollId", out var pollIdObj) ||
+                !int.TryParse(pollIdObj?.ToString(), out var pollId))
             {
-                context.Result = new UnauthorizedResult();
+                context.Result = new BadRequestObjectResult("Invalid poll ID.");
                 return;
             }
 
@@ -32,17 +31,11 @@ namespace Presentation.Filters
                 return;
             }
 
-            // ACheck voterIDs list to see if the user has already voted
-            if (poll.VoterIds.Contains(userId))
+            if (poll.VoterIds.Contains(context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
                 context.Result = new BadRequestObjectResult("You have already voted.");
                 return;
             }
-        }
-
-        public void OnActionExecuted(ActionExecutedContext context)
-        {
-            // No action needed after execution
         }
     }
 }

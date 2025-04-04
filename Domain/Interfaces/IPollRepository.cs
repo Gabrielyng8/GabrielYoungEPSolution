@@ -9,6 +9,6 @@ namespace DataAccess.Repositories
         IQueryable<Poll> GetPolls();
         Poll GetPollById(int id);
         void CreatePoll(Poll poll);
-        void Vote(int pollId, int option);
+        void Vote(int pollId, int option, string userId);
     }
 }

@@ -1,12 +1,14 @@
 ﻿using DataAccess.Repositories;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Filters;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
     public class PollController : Controller
     {
-
         [HttpGet]
         public IActionResult Index([FromServices] IPollRepository pollRepository)
         {
@@ -14,12 +16,14 @@ namespace Presentation.Controllers
             return View(polls);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Create([FromServices] IPollRepository pollRepository)
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create([FromServices] IPollRepository pollRepository, string title, string option1Text, string option2Text, string option3Text)
         {
@@ -51,11 +55,15 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [ServiceFilter(typeof(EnsureSingleVoteFilter))] // applies the filter!
         public IActionResult Vote([FromServices] IPollRepository pollRepository, int pollId, int option)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             try
             {
-                pollRepository.Vote(pollId, option);
+                pollRepository.Vote(pollId, option, userId);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException ex)
