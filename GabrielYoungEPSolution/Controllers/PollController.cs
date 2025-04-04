@@ -76,8 +76,6 @@ namespace Presentation.Controllers
         [Authorize]
         public IActionResult Vote(int pollId)
         {
-
-            // After login, if the user is redirected here via GET, just forward them to the poll
             return RedirectToAction("Details", new { id = pollId });
         }
     }

@@ -115,4 +115,11 @@
             }
         });
     </script>
+
+    @if (TempData["Alert"] != null)
+    {
+        <script>
+            alert('@TempData["Alert"]');
+        </script>
+    }
 }

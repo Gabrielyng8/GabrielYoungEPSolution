@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 using DataAccess.Repositories;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Presentation.Filters
 {
-    public class EnsureSingleVoteFilter : IActionFilter
+    public class EnsureSingleVoteFilter : ActionFilterAttribute
     {
         private readonly IPollRepository _pollRepository;
 
@@ -15,7 +16,7 @@ namespace Presentation.Filters
             _pollRepository = pollRepository;
         }
 
-        public void OnActionExecuting(ActionExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ActionArguments.TryGetValue("pollId", out var pollIdObj) ||
                 !int.TryParse(pollIdObj?.ToString(), out var pollId))
@@ -31,16 +32,17 @@ namespace Presentation.Filters
                 return;
             }
 
-            if (poll.VoterIds.Contains(context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            var userId = context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (poll.VoterIds.Contains(userId))
             {
-                context.Result = new BadRequestObjectResult("You have already voted.");
-                return;
+                // Set TempData via ITempDataDictionaryFactory
+                var tempDataFactory = context.HttpContext.RequestServices.GetService(typeof(ITempDataDictionaryFactory)) as ITempDataDictionaryFactory;
+                var tempData = tempDataFactory?.GetTempData(context.HttpContext);
+                tempData["Alert"] = "You have already voted in this poll.";
+
+                context.Result = new RedirectToActionResult("Details", "Poll", new { id = pollId });
             }
         }
-
-        public void OnActionExecuted(ActionExecutedContext context)
-        {
-            
-        }
     }
+
 }
