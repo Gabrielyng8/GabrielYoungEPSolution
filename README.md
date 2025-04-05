@@ -1,5 +1,7 @@
 # GabrielYoungEPSolution
 
+http://gabrielyng8-001-site1.ntempurl.com/
+
 This project is a web-based polling application built using ASP.NET Core. It allows users to create polls, vote on options, and view poll results. The application supports user authentication and ensures that each user can vote only once per poll.
 
 ## Features
